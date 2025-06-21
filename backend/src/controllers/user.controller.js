@@ -55,6 +55,16 @@ class UserController {
         }
     }
 
+    async getProfile(req, res, next) {
+        try {
+            const userId = req.user.id;
+            const user = await userService.getProfile(userId);
+            return res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async getUsers(req, res, next) {
         try {
             const users = await userService.getAllUsers();

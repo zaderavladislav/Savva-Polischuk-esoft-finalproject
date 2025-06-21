@@ -11,6 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - esoft-network
 
   backend:
     build:
@@ -29,6 +31,8 @@ services:
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
+    networks:
+      - esoft-network
 
   frontend:
     build:
@@ -40,6 +44,12 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+    networks:
+      - esoft-network
 
 volumes:
-  postgres_data: 
+  postgres_data:
+
+networks:
+  esoft-network:
+    driver: bridge 

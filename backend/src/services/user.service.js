@@ -59,6 +59,15 @@ class UserService {
         return { ...tokens, user: userDto }
     }
 
+    async getProfile(userId) {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            throw new Error('Пользователь не найден');
+        }
+        const userDto = new UserDto(user);
+        return userDto;
+    }
+
     async getAllUsers() {
         const users = await User.findAll();
         return users;

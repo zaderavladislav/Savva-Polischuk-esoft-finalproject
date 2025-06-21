@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from './hooks/redux';
 import { logout } from './store/authSlice';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
+import ProfilePage from './pages/ProfilePage';
 import './App.css';
 
 function App() {
@@ -25,11 +26,16 @@ function App() {
   }
 
   return (
-    <div>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/profile">Profile</Link> | <button onClick={() => dispatch(logout())}>Logout</button>
+      </nav>
       <h1>Welcome, {'nickname' in user && user.nickname}!</h1>
-      <button onClick={() => dispatch(logout())}>Logout</button>
-      <p>Your content here</p>
-    </div>
+      <Routes>
+        <Route path="/" element={<div>Your content here</div>} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
